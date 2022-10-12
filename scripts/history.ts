@@ -57,20 +57,6 @@ for ( const year of REVERSE ? years.reverse() : years ) {
             }
             if ( active_tasks >= MAX_TASKS ) continue;
 
-            // transfers
-            if ( ADAPTERS.has("transfers") ) {
-                if ( !fs.existsSync(data_filepath(CHAIN, "transfers", date))) {
-                    active_tasks += 1;
-                    queue.add(() => adapters.transfers(start_date, stop_date));
-                }
-            }
-            // transactions
-            if ( ADAPTERS.has("transactions") ) {
-                if ( !fs.existsSync(data_filepath(CHAIN, "transactions", date))) {
-                    active_tasks += 1;
-                    queue.add(() => adapters.transactions(start_date, stop_date));
-                }
-            }
             // Tether USDT
             if ( ADAPTERS.has("tether") ) {
                 if ( !fs.existsSync(data_filepath(CHAIN, "tether", date))) {
