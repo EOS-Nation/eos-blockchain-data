@@ -17,11 +17,11 @@ export function amount_to_float( amount: string ) {
   return parseFloat(amount.split(" ")[0]);
 }
 
-export function data_filepath(chain: string, adapter: string, date: string) {
+export function data_filepath(chain: string, adapter: string, date: string, ext = "json") {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const folder = path.join(__dirname, "..", "data", chain, adapter );
   if ( !fs.existsSync(folder)) fs.mkdirSync(folder, {recursive: true});
-  return path.join(folder, `${adapter}-${date}.json` );
+  return path.join(folder, `${adapter}-${date}.${ext}` );
 }
 
 export function parseTimestamp( timestamp: string ) {
