@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { Block } from "../../src/firehose.js"
 import { fileURLToPath } from "node:url";
-import { isMain, data_filepath } from "../../src/utils.js";
+import { isMain, data_filepath, log_event, to_date } from "../../src/utils.js";
 import { streamBlocks, get_blocks } from "../../src/dfuse.js";
 import { CHAIN } from "../../src/config.js";
 
@@ -16,23 +16,12 @@ const exclude_filter_expr = 'action == "*"'
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const adapter = path.basename(__dirname);
 
-function log_event(block: Block) {
-    const block_num = block.number;
-    const timestamp = Number(block.header.timestamp.seconds);
-    const date = new Date(timestamp * 1000).toISOString().slice(0, 19) + "Z";
-    if ( block_num % 120 == 0 ) console.log(date, adapter, JSON.stringify({block_num}));
-}
-
-function to_date(timestamp: number) {
-    return new Date(timestamp * 1000).toISOString().slice(0, 19) + "Z";
-}
-
 const accounts = new Set([
-    "eosnationftw",
-    "eosnationinc"
+    ...require("./accounts/eos.json"),
 ])
 
 interface Schema {
+    date: string;
     timestamp: number;
     block_num: number;
     transaction_id: string;
@@ -51,7 +40,7 @@ export default async function main( start_date: string, stop_date: string ) {
     function callback(block: Block) {
         const block_num = block.number;
         const timestamp = Number(block.header.timestamp.seconds);
-        log_event(block);
+        log_event(adapter, block);
 
         //filtering actual trades and duplicated mine actions in a single block
         for ( const { actionTraces } of block.filteredTransactionTraces ) {
@@ -71,6 +60,7 @@ export default async function main( start_date: string, stop_date: string ) {
                     if ( !quantity ) continue;
                     const [ amount, symbol ] = quantity.split(" ");
                     transfers.push({
+                        date: to_date(timestamp),
                         timestamp,
                         block_num,
                         transaction_id: transactionId,

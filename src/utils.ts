@@ -1,6 +1,7 @@
 import { Serializer } from "@greymass/eosio";
 import { argv } from "process"
 import { fileURLToPath } from "url"
+import { Block } from "./firehose.js"
 import fs from "node:fs";
 import path from "node:path";
 import abi from "./abi/index.js";
@@ -11,6 +12,17 @@ export function timeout(ms: number) {
       return resolve(true);
     }, ms);
   })
+}
+
+export function log_event(adapter: string, block: Block) {
+  const block_num = block.number;
+  const timestamp = Number(block.header.timestamp.seconds);
+  const date = new Date(timestamp * 1000).toISOString().slice(0, 19) + "Z";
+  if ( block_num % 120 == 0 ) console.log(date, adapter, JSON.stringify({block_num}));
+}
+
+export function to_date(timestamp: number) {
+  return new Date(timestamp * 1000).toISOString().slice(0, 19) + "Z";
 }
 
 export function amount_to_float( amount: string ) {
