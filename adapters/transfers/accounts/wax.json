@@ -1,3 +1,4 @@
 [
-    "nation.wax"
+    "eosio.vpay",
+    "eosio.bpay"
 ]
