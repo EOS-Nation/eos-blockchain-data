@@ -46,13 +46,13 @@ for ( const year of REVERSE ? years.reverse() : years ) {
 
             // is valid calendar date
             if ( !is_valid_date( start_date ) ) {
-                console.log("[history] invalid date", start_date);
+                // console.log("[history] invalid date", start_date);
                 continue;
             }
 
             // skip if in the future or before -1 hour
             if ( is_date_early( stop_date )) {
-                console.log("[history] skipped too early", stop_date);
+                // console.log("[history] skipped too early", stop_date);
                 continue;
             }
             if ( active_tasks >= MAX_TASKS ) continue;
@@ -62,6 +62,8 @@ for ( const year of REVERSE ? years.reverse() : years ) {
                 if ( !fs.existsSync(data_filepath(CHAIN, "tether", date))) {
                     active_tasks += 1;
                     queue.add(() => adapters.tether(start_date, stop_date));
+                } else {
+                    console.log("[history::tether] already exists", start_date);
                 }
             }
 
@@ -70,6 +72,8 @@ for ( const year of REVERSE ? years.reverse() : years ) {
                 if ( !fs.existsSync(data_filepath(CHAIN, "resources", date))) {
                     active_tasks += 1;
                     queue.add(() => adapters.resources(start_date, stop_date));
+                } else {
+                    console.log("[history::resources] already exists", start_date);
                 }
             }
 
@@ -78,6 +82,8 @@ for ( const year of REVERSE ? years.reverse() : years ) {
                 if ( !fs.existsSync(data_filepath(CHAIN, "producerpay", date))) {
                     active_tasks += 1;
                     queue.add(() => adapters.resources(start_date, stop_date));
+                } else {
+                    console.log("[history::producerpay] already exists", start_date);
                 }
             }
         }
