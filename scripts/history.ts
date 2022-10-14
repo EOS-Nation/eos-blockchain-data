@@ -72,6 +72,14 @@ for ( const year of REVERSE ? years.reverse() : years ) {
                     queue.add(() => adapters.resources(start_date, stop_date));
                 }
             }
+
+            // Producer (Block Producer & Voting Rewards)
+            if ( ADAPTERS.has("producerpay") ) {
+                if ( !fs.existsSync(data_filepath(CHAIN, "producerpay", date))) {
+                    active_tasks += 1;
+                    queue.add(() => adapters.resources(start_date, stop_date));
+                }
+            }
         }
     }
 }
