@@ -18,7 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const adapter = path.basename(__dirname);
 
 const accounts = new Set([
-    ...loadJsonFileSync<string[]>(`./accounts/${CHAIN}.json`),
+    ...loadJsonFileSync<string[]>(path.join(__dirname, 'accounts', `${CHAIN}.json`),
 ])
 
 interface Schema {
