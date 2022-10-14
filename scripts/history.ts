@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import * as adapters from "../adapters/index.js"
+import adapters from "../adapters/index.js"
 import PQueue from "p-queue";
 import { CONCURRENCY, MAX_TASKS, ADAPTERS, REVERSE, CHAIN } from '../src/config.js';
 import { data_filepath } from "../src/utils.js";
@@ -46,44 +46,23 @@ for ( const year of REVERSE ? years.reverse() : years ) {
 
             // is valid calendar date
             if ( !is_valid_date( start_date ) ) {
-                // console.log("[history] invalid date", start_date);
-                continue;
+                continue; // invalid date
             }
 
             // skip if in the future or before -1 hour
             if ( is_date_early( stop_date )) {
-                // console.log("[history] skipped too early", stop_date);
-                continue;
+                continue; // skipped too early
             }
             if ( active_tasks >= MAX_TASKS ) continue;
 
-            // Tether USDT
-            if ( ADAPTERS.has("tether") ) {
-                if ( !fs.existsSync(data_filepath(CHAIN, "tether", date))) {
+            // Process adapters
+            for ( const adapter of ADAPTERS ) {
+                if ( !adapters.has(adapter) ) throw new Error(`[history] adapter not found: ${adapter}`);
+                if ( !fs.existsSync(data_filepath(CHAIN, adapter, date))) {
                     active_tasks += 1;
-                    queue.add(() => adapters.tether(start_date, stop_date));
+                    queue.add(() => adapters.get(adapter)(start_date, stop_date));
                 } else {
-                    console.log("[history::tether] already exists", start_date);
-                }
-            }
-
-            // Resources
-            if ( ADAPTERS.has("resources") ) {
-                if ( !fs.existsSync(data_filepath(CHAIN, "resources", date))) {
-                    active_tasks += 1;
-                    queue.add(() => adapters.resources(start_date, stop_date));
-                } else {
-                    console.log("[history::resources] already exists", start_date);
-                }
-            }
-
-            // Producer (Block Producer & Voting Rewards)
-            if ( ADAPTERS.has("producerpay") ) {
-                if ( !fs.existsSync(data_filepath(CHAIN, "producerpay", date))) {
-                    active_tasks += 1;
-                    queue.add(() => adapters.resources(start_date, stop_date));
-                } else {
-                    console.log("[history::producerpay] already exists", start_date);
+                    console.log(`[history::${adapter}] already exists`, start_date);
                 }
             }
         }
