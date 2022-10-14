@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { loadJsonFileSync } from 'load-json-file';
 import { Block } from "../../src/firehose.js"
 import { fileURLToPath } from "node:url";
 import { isMain, data_filepath, log_event, to_date } from "../../src/utils.js";
@@ -17,7 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const adapter = path.basename(__dirname);
 
 const accounts = new Set([
-    ...require("./accounts/eos.json"),
+    ...loadJsonFileSync<string[]>(`./accounts/${CHAIN}.json`),
 ])
 
 interface Schema {
