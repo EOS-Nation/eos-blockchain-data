@@ -104,13 +104,13 @@ export default async function main( start_date: string, stop_date: string ) {
         }
     }
 
-    console.log('[transfers] starting...');
+    console.log(`[adapter::${adapter}] starting...`);
     const { start_block, stop_block } = await get_blocks( start_date, stop_date );
     const message = await streamBlocks(start_block.num, stop_block.num, callback, {include_filter_expr, exclude_filter_expr});
 
     // save data
     if ( message == "stream.on::end") {
-        console.log("[transfers] saving...");
+        console.log(`[adapter::${adapter}] saving...`);
         const date = start_date.slice(0, 10);
         fs.writeFileSync(data_filepath(CHAIN, adapter, date), JSON.stringify({
             start_block,
@@ -125,9 +125,9 @@ export default async function main( start_date: string, stop_date: string ) {
             kucoin_transfer_volume: Number(kucoin_transfer_volume.toFixed(4)),
             daily_active_accounts: accounts.size,
         }, null, 4));
-        console.log("[transfers] done!");
+        console.log(`[adapter::${adapter}] done!`);
     } else {
-        console.log("[transfers] exit without saving");
+        console.log(`[adapter::${adapter}] exit without saving`);
     }
 }
 
