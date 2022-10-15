@@ -11,7 +11,8 @@ export async function main( adapter: Adapter, start_date: string, stop_date: str
 
     console.log(`[adapter::${filename}] starting...`);
     const { start_block, stop_block } = await get_blocks( start_date, stop_date );
-    const message = await streamBlocks(start_block.num, stop_block.num, adapter.callback, store, {...adapter});
+    const options = { exclude_filter_expr: adapter.exclude_filter_expr, include_filter_expr: adapter.include_filter_expr };
+    const message = await streamBlocks(start_block.num, stop_block.num, adapter.callback, store, options);
 
     // save data
     if ( message == "stream.on::end") {
