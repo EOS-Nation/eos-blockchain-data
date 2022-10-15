@@ -134,7 +134,6 @@ export async function streamBlocks( start_block_num: number, stop_block_num: num
     }
 
     function onData( data: any, resolve: (value: any) => void ) {
-        console.log(data)
         const { block: rawBlock } = data;
         if (rawBlock.type_url !== "type.googleapis.com/dfuse.eosio.codec.v1.Block") {
             exitStream("[type_url] invalid", resolve);
