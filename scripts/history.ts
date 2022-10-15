@@ -1,8 +1,9 @@
 import fs from "node:fs";
-import adapters from "../adapters/index.js"
+import * as adapters from "../adapters/index.js"
 import PQueue from "p-queue";
 import { CONCURRENCY, MAX_TASKS, ADAPTERS, REVERSE, CHAIN } from '../src/config.js';
 import { data_filepath } from "../src/utils.js";
+import { main } from "./store.js";
 
 const queue = new PQueue({concurrency: CONCURRENCY});
 
@@ -56,11 +57,11 @@ for ( const year of REVERSE ? years.reverse() : years ) {
             if ( active_tasks >= MAX_TASKS ) continue;
 
             // Process adapters
-            for ( const adapter of ADAPTERS ) {
-                if ( !adapters.has(adapter) ) throw new Error(`[history] adapter not found: ${adapter}`);
-                if ( !fs.existsSync(data_filepath(CHAIN, adapter, date))) {
+            for ( const filename of ADAPTERS ) {
+                const adapter = adapters.get(filename);
+                if ( !fs.existsSync(data_filepath(CHAIN, filename, date, adapter.extension)) ) {
                     active_tasks += 1;
-                    queue.add(() => adapters.get(adapter)(start_date, stop_date));
+                    queue.add(() => main(adapter, start_date, stop_date));
                 } else {
                     console.log(`[history::${adapter}] already exists`, start_date);
                 }

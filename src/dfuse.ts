@@ -66,7 +66,7 @@ export const dfuse = createDfuseClient({
 // kill everything if true
 let SIGINT = false;
 
-export async function streamBlocks( start_block_num: number, stop_block_num: number, callback: (block: Block) => void, options: { exclude_filter_expr?: string; include_filter_expr?: string } = {} ) {
+export async function streamBlocks( start_block_num: number, stop_block_num: number, callback: (block: Block, store: any) => void, store: any, options: { exclude_filter_expr?: string; include_filter_expr?: string } = {} ) {
     if ( SIGINT ) return;
 
     console.log("streamBlocks", {start_block_num, stop_block_num, options});
@@ -134,6 +134,7 @@ export async function streamBlocks( start_block_num: number, stop_block_num: num
     }
 
     function onData( data: any, resolve: (value: any) => void ) {
+        console.log(data)
         const { block: rawBlock } = data;
         if (rawBlock.type_url !== "type.googleapis.com/dfuse.eosio.codec.v1.Block") {
             exitStream("[type_url] invalid", resolve);
@@ -143,7 +144,7 @@ export async function streamBlocks( start_block_num: number, stop_block_num: num
             last_block_num = block.number;
             blocks_to_processed--;
         }
-        callback(block);
+        callback(block, store);
     }
 
     return new Promise((resolve) => {
