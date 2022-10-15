@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { writeJsonFileSync } from 'write-json-file';
+// import { writeJsonFileSync } from 'write-json-file';
 import { Adapter } from "../adapters/index.js";
 import { data_filepath } from "../src/utils.js";
 import { streamBlocks, get_blocks } from "../src/dfuse.js";
@@ -28,7 +28,8 @@ export async function main( adapter: Adapter, start_date: string, stop_date: str
 }
 
 function handle_json( filepath: string, store: any ) {
-    writeJsonFileSync(filepath, store);
+    // writeJsonFileSync(filepath, store);
+    fs.writeFileSync(filepath, JSON.stringify(store, null, "\t"));
 }
 
 function handle_jsonl( filepath: string, store: any[] ) {

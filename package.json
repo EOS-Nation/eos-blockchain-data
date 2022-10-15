@@ -23,7 +23,6 @@
     "load-json-file": "^7.0.1",
     "p-queue": "^7.3.0",
     "protobufjs": "7.0.0",
-    "write-json-file": "^5.0.0",
     "ws": "8.8.1"
   },
   "devDependencies": {
