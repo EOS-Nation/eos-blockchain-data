@@ -64,7 +64,7 @@ for ( const year of REVERSE ? years.reverse() : years ) {
                     active_tasks += 1;
                     queue.add(() => main(adapter, start_date, stop_date));
                 } else {
-                    console.log(`[history::${adapter}] already exists`, start_date);
+                    console.log(`[history::${filename}] already exists`, start_date);
                 }
             }
         }
