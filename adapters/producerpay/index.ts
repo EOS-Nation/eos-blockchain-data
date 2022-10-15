@@ -55,7 +55,7 @@ export function callback(block: Block, store: Schema[]) {
                 const { from, to, quantity, memo } = jsonData;
 
                 // must be a transfer from chain accounts
-                if ( !accounts.has(from) && !accounts.has(to) ) continue;
+                if ( !accounts.has(from) ) continue;
 
                 // parse quantity
                 if ( !quantity ) continue;
