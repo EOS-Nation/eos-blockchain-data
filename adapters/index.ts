@@ -12,13 +12,8 @@ export interface Adapter {
     callback(block: Block, store: any): void;       // on block callback
 }
 
-const adapters = new Map<string, Adapter>([
+export default new Map<string, Adapter>([
     // ["tether", tether],
     // ["resources", resources],
     ["producerpay", producerpay],
 ]);
-
-export function get(adapter: string ): Adapter {
-    if ( !adapters.get(adapter) ) throw new Error(`[adapter=${adapter}] not found`);
-    return adapters.get(adapter) as Adapter;
-}

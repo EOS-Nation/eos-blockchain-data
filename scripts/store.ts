@@ -1,5 +1,5 @@
 import fs from "node:fs";
-// import { writeJsonFileSync } from 'write-json-file';
+import { writeJsonFileSync } from 'write-json-file';
 import { Adapter } from "../adapters/index.js";
 import { data_filepath } from "../src/utils.js";
 import { streamBlocks, get_blocks } from "../src/dfuse.js";
@@ -11,7 +11,6 @@ export async function main( adapter: Adapter, start_date: string, stop_date: str
 
     console.log(`[adapter::${filename}] starting...`);
     const { start_block, stop_block } = await get_blocks( start_date, stop_date );
-    // const options = { exclude_filter_expr: adapter.exclude_filter_expr, include_filter_expr: adapter.include_filter_expr };
     const message = await streamBlocks(start_block.num, stop_block.num, adapter.callback, store, {...adapter});
 
     // save data
@@ -28,8 +27,7 @@ export async function main( adapter: Adapter, start_date: string, stop_date: str
 }
 
 function handle_json( filepath: string, store: any ) {
-    // writeJsonFileSync(filepath, store);
-    fs.writeFileSync(filepath, JSON.stringify(store, null, "\t"));
+    writeJsonFileSync(filepath, store);
 }
 
 function handle_jsonl( filepath: string, store: any[] ) {

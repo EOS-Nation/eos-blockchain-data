@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import * as adapters from "../adapters/index.js"
+import adapters from "../adapters/index.js"
 import PQueue from "p-queue";
 import { CONCURRENCY, MAX_TASKS, ADAPTERS, REVERSE, CHAIN } from '../src/config.js';
 import { data_filepath } from "../src/utils.js";
@@ -59,6 +59,7 @@ for ( const year of REVERSE ? years.reverse() : years ) {
             // Process adapters
             for ( const filename of ADAPTERS ) {
                 const adapter = adapters.get(filename);
+                if ( !adapter ) throw new Error(`adapter not found: ${filename}`);
                 if ( !fs.existsSync(data_filepath(CHAIN, filename, date, adapter.extension)) ) {
                     active_tasks += 1;
                     queue.add(() => main(adapter, start_date, stop_date));
