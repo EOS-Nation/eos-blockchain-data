@@ -36,6 +36,8 @@ AUTHENTICATION=true
 ## Quickstart
 
 ```
+$ node -v
+v18.8.0
 $ git clone https://github.com/EOS-Nation/eos-blockchain-data.git
 $ cd eos-blockchain-data
 $ npm ci
