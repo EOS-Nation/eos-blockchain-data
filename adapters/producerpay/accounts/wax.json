@@ -1,4 +1,7 @@
-[
-    "eosio.vpay",
-    "eosio.bpay"
-]
+{
+    "from": [
+        "eosio.vpay",
+        "eosio.bpay"
+    ],
+    "to": []
+}

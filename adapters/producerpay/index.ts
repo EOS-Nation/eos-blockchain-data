@@ -16,9 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const filename = path.basename(__dirname);
 export const extension = "jsonl";
 
-const accounts = new Set([
-    ...loadJsonFileSync<string[]>(path.join(__dirname, 'accounts', `${CHAIN}.json`))
-])
+const accounts = loadJsonFileSync<{from: string[], to: string[]}>(path.join(__dirname, 'accounts', `${CHAIN}.json`));
 
 interface Schema {
     date: string;
@@ -54,8 +52,9 @@ export function callback(block: Block, store: Schema[]) {
             if ( action.name == "transfer" ) {
                 const { from, to, quantity, memo } = jsonData;
 
-                // must be a transfer from chain accounts
-                if ( !accounts.has(from) ) continue;
+                // must be a transfer from/to accounts
+                if ( accounts.from.indexOf(from) === -1 ) continue;
+                if ( accounts.to.indexOf(to) === -1 ) continue;
 
                 // parse quantity
                 if ( !quantity ) continue;
