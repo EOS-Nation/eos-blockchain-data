@@ -18,7 +18,7 @@ export function log_event(adapter: string, block: Block) {
   const block_num = block.number;
   const timestamp = Number(block.header.timestamp.seconds);
   const date = new Date(timestamp * 1000).toISOString().slice(0, 19) + "Z";
-  if ( block_num % 120 == 0 ) console.log(date, `[log::${adapter}]`, JSON.stringify({block_num}));
+  if ( block_num % 120 == 0 ) console.info(date, `[log::${adapter}]`, JSON.stringify({block_num}));
 }
 
 export function to_date(timestamp: number) {

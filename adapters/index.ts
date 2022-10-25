@@ -1,6 +1,7 @@
 // import tether from "./tether/index.js"
 // import resources from "./resources/index.js"
 import * as producerpay from "./producerpay/index.js"
+import * as eosioYield from "./eosio.yield/index.js"
 import { Block } from "../src/firehose.js"
 
 export interface Adapter {
@@ -15,5 +16,6 @@ export interface Adapter {
 export default new Map<string, Adapter>([
     // ["tether", tether],
     // ["resources", resources],
+    ["eosioYield", eosioYield],
     ["producerpay", producerpay],
 ]);
