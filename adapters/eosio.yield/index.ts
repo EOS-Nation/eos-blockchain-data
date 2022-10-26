@@ -6,8 +6,8 @@ import { log_event, to_date } from "../../src/utils.js";
 // filters
 const events = [
     "eosio.yield::report",
-    "eosio.yield::rewardlog",
-    "oracle.yield::updatelog",
+    "eosio.yield::rewardslog",
+    "oracle.yield::updatelog"
 ];
 export const include_filter_expr = events.map(event => {
     const [ receiver, action ] = event.split("::");
