@@ -16,6 +16,6 @@ export interface Adapter {
 export default new Map<string, Adapter>([
     // ["tether", tether],
     // ["resources", resources],
-    ["eosioYield", eosioYield],
+    ["eosio.yield", eosioYield],
     ["producerpay", producerpay],
 ]);
