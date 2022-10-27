@@ -2,6 +2,7 @@
 // import resources from "./resources/index.js"
 import * as producerpay from "./producerpay/index.js"
 import * as eosioYield from "./eosio.yield/index.js"
+import * as swapDefi from "./swap.defi/index.js"
 import { Block } from "../src/firehose.js"
 
 export interface Adapter {
@@ -16,6 +17,7 @@ export interface Adapter {
 export default new Map<string, Adapter>([
     // ["tether", tether],
     // ["resources", resources],
+    ["swap.defi", swapDefi],
     ["eosio.yield", eosioYield],
     ["producerpay", producerpay],
 ]);
