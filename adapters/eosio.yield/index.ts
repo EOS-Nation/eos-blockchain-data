@@ -20,14 +20,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const filename = path.basename(__dirname);
 export const extension = "jsonl";
 
-interface Schema {
+export interface Schema<T = unknown> {
     date: string;
     timestamp: number;
     block_num: number;
     transaction_id: string;
     account: string;
     action: string;
-    jsonData: string;
+    jsonData: T;
 }
 
 export function init(): Schema[] {
