@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import { Block } from "../../src/firehose.js"
+import { Block } from "../../src/interfaces.js"
 import { fileURLToPath } from "node:url";
 import { isMain, data_filepath } from "../../src/utils.js";
-import { streamBlocks, get_blocks } from "../../src/dfuse.js";
+import { streamBlocks, get_blocks } from "../../src/firehose.js";
 import { CHAIN } from "../../src/config.js";
 
 // filters

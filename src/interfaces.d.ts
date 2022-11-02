@@ -1,3 +1,9 @@
+export interface GetBlock {
+    id: string;
+    num: number;
+    time: string;
+}
+
 export interface BlockTime {
     seconds: string;
     nanos: number;

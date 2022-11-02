@@ -6,7 +6,7 @@ import path from "node:path"
 import { fileURLToPath } from "node:url";
 import { createDfuseClient, InMemoryApiTokenStore } from "@dfuse/client"
 import { timeout } from "./utils.js"
-import { Block } from "./firehose.js"
+import { Block, GetBlock } from "./interfaces.js"
 import { DFUSE_TOKEN, DFUSE_DFUSE_NETWORK, DFUSE_FIREHOSE_NETWORK, TIMEOUT_MS, SECURE, AUTHENTICATION } from './config.js';
 
 // Global required by dfuse client
@@ -152,12 +152,6 @@ export async function streamBlocks( start_block_num: number, stop_block_num: num
         stream.on("end", () => endStream("stream.on::end", resolve));
         stream.on("error", (error: any) => errorStream("stream.on::error", error, resolve ));
     })
-}
-
-interface GetBlock {
-    id: string;
-    num: number;
-    time: string;
 }
 
 export async function get_blocks(start_date: string, stop_date: string ): Promise<{start_block: GetBlock, stop_block: GetBlock}> {

@@ -2,7 +2,8 @@ import fs from "node:fs";
 import { writeJsonFileSync } from 'write-json-file';
 import { Adapter } from "../adapters/index.js";
 import { data_filepath } from "../src/utils.js";
-import { streamBlocks, get_blocks } from "../src/dfuse.js";
+import { streamBlocks, get_blocks } from "../src/firehose.js";
+import { GetBlock } from "../src/interfaces.js";
 import { CHAIN } from "../src/config.js";
 
 export async function main( adapter: Adapter, start_date: string, stop_date: string ) {
@@ -18,7 +19,7 @@ export async function main( adapter: Adapter, start_date: string, stop_date: str
         console.log(`[adapter::${filename}] saving...`);
         const date = start_date.slice(0, 10);
         const filepath = data_filepath(CHAIN, filename, date, extension);
-        if ( extension == "json" ) handle_json(filepath, store);
+        if ( extension == "json" ) handle_json(filepath, store, start_block, stop_block );
         if ( extension == "jsonl" ) handle_jsonl(filepath, store);
         console.log(`[adapter::${filename}] done!`);
     } else {
@@ -26,7 +27,9 @@ export async function main( adapter: Adapter, start_date: string, stop_date: str
     }
 }
 
-function handle_json( filepath: string, store: any ) {
+function handle_json( filepath: string, store: any, start_block: GetBlock, stop_block: GetBlock ) {
+    store.start_block = start_block;
+    store.stop_block = stop_block;
     writeJsonFileSync(filepath, store);
 }
 

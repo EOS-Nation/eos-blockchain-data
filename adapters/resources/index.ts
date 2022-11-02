@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { Block } from "../../src/firehose.js"
-import { streamBlocks, get_blocks } from "../../src/dfuse.js";
+import { Block } from "../../src/interfaces.js"
+import { streamBlocks, get_blocks } from "../../src/firehose.js";
 import { isMain, data_filepath } from "../../src/utils.js";
 import { CHAIN } from "../../src/config.js";
 import * as rex from "./rex.js";

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadJsonFileSync } from 'load-json-file';
-import { Block } from "../../src/firehose.js"
+import { Block } from "../../src/interfaces.js"
 import { CHAIN } from "../../src/config.js";
 import { log_event, to_date } from "../../src/utils.js";
 

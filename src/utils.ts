@@ -1,7 +1,7 @@
 import { Serializer } from "@greymass/eosio";
 import { argv } from "process"
 import { fileURLToPath } from "url"
-import { Block } from "./firehose.js"
+import { Block } from "./interfaces.js"
 import fs from "node:fs";
 import path from "node:path";
 import abi from "./abi/index.js";
