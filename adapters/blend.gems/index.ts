@@ -5,7 +5,8 @@ import { log_event, to_date } from "../../src/utils.js";
 
 // filters
 const events = [
-    "swap.defi::swaplog",
+    "blendlog::blend.gems",
+    "atomicassets::atomicassets",
 ];
 export const include_filter_expr = events.map(event => {
     const [ receiver, action ] = event.split("::");

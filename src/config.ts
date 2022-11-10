@@ -10,7 +10,7 @@ export const DFUSE_DFUSE_NETWORK = process.env.DFUSE_DFUSE_NETWORK || "eos.dfuse
 export const TIMEOUT_MS = Number(process.env.TIMEOUT_MS ?? 3000);
 export const CONCURRENCY = Number(process.env.CONCURRENCY ?? 2);
 export const MAX_TASKS = Number(process.env.MAX_TASKS ?? 2);
-export const ADAPTERS = new Set(process.env.ADAPTERS?.split(",") ?? ["bullish"]);
+export const ADAPTERS = new Set(process.env.ADAPTERS?.split(",") ?? ["blend.gems"]);
 if (!DFUSE_TOKEN) throw new Error("[DFUSE_TOKEN] is required");
 if (!DFUSE_FIREHOSE_NETWORK) throw new Error("[DFUSE_FIREHOSE_NETWORK] is required");
 if (!DFUSE_DFUSE_NETWORK) throw new Error("[DFUSE_DFUSE_NETWORK] is required");

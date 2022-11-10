@@ -3,7 +3,8 @@
 import * as producerpay from "./producerpay/index.js"
 import * as eosioYield from "./eosio.yield/index.js"
 import * as swapDefi from "./swap.defi/index.js"
-import { Block } from "../src/firehose.js"
+import * as blendGems from "./blend.gems/index.js"
+import { Block } from "../src/interfaces.js"
 
 export interface Adapter {
     filename: string;                               // adapter filename (ex: "producerpay")
@@ -20,4 +21,5 @@ export default new Map<string, Adapter>([
     ["swap.defi", swapDefi],
     ["eosio.yield", eosioYield],
     ["producerpay", producerpay],
+    ["blend.gems", blendGems],
 ]);
