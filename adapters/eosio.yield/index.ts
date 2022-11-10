@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { Block } from "../../src/firehose.js"
+import { Block } from "../../src/interfaces.js"
 import { log_event, to_date } from "../../src/utils.js";
 
 // filters
