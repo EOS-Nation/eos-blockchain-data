@@ -5,13 +5,12 @@ import { log_event, to_date } from "../../src/utils.js";
 
 // filters
 const events = [
-    "eosio.yield::report",
-    "eosio.yield::rewardslog",
-    "oracle.yield::updatelog"
+    "eosio.yield",
+    "oracle.yield"
 ];
 export const include_filter_expr = events.map(event => {
     const [ receiver, action ] = event.split("::");
-    return `(receiver == "${receiver}" && action == "${action}")`;
+    return `receiver == "${receiver}"`;
 }).join(" || ");
 export const exclude_filter_expr = 'action == "*"'
 
