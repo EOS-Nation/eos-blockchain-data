@@ -2,6 +2,7 @@
 // import resources from "./resources/index.js"
 import * as producerpay from "./producerpay/index.js"
 import * as eosioYield from "./eosio.yield/index.js"
+import * as eosioToken from "./eosio.token/index.js"
 import * as swapDefi from "./swap.defi/index.js"
 import * as blendGems from "./blend.gems/index.js"
 import { Block } from "../src/interfaces.js"
@@ -20,6 +21,7 @@ export default new Map<string, Adapter>([
     // ["resources", resources],
     ["swap.defi", swapDefi],
     ["eosio.yield", eosioYield],
+    ["eosio.token", eosioToken],
     ["producerpay", producerpay],
     ["blend.gems", blendGems],
 ]);
