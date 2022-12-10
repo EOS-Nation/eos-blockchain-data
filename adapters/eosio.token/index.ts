@@ -6,7 +6,7 @@ import { log_event, to_date } from "../../src/utils.js";
 // filters
 const filter_action = "transfer";
 export const include_filter_expr = `action == "${filter_action}"`;
-export const exclude_filter_expr = 'action == "*"'
+// export const exclude_filter_expr = 'action == "*"'
 
 // adapter folder
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

@@ -10,8 +10,8 @@ import { Block } from "../src/interfaces.js"
 export interface Adapter {
     filename: string;                               // adapter filename (ex: "producerpay")
     extension: "json" | "jsonl";                    // file extension (ex: "json", "jsonl")
-    include_filter_expr: string;                    // include Firehose filter expressions
-    exclude_filter_expr: string;                    // exclude Firehose filter expressions
+    include_filter_expr?: string;                    // include Firehose filter expressions
+    exclude_filter_expr?: string;                    // exclude Firehose filter expressions
     init: () => any;                                // initalize store
     callback(block: Block, store: any): void;       // on block callback
 }
